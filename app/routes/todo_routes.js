@@ -5,6 +5,19 @@ var ObjectID = require('mongodb').ObjectID;
 module.exports = function(app, db) {
 
 
+ app.get('', (req, res) => {
+	var home = { 
+		    "get_all_todos":    {"GET"  	: "localhost:8000/todos"},
+		    "get_todo_with_id": {"GET"  	: "localhost:8000/todos/:id"},
+		    "post_todo":        {"POST" 	: "localhost:8000/todos"},
+		    "delete_todo":      {"DELETE"   : "localhost:8000/todos/:id"},
+		    "pathc_todo":	{"PATCH"  	: "localhost:8000/todos/:id"}	
+
+};
+
+    res.send(home);
+  });
+
 
 // GET /todos  => []  
 
@@ -48,7 +61,7 @@ app.post('/todos', (req, res) => {
   });
 
 
-//Deleted /todos  => {} 
+//Delete /todos  => {} 
 
 app.delete('/todos/:id', (req, res) => {
     const id = req.params.id;
@@ -63,7 +76,7 @@ app.delete('/todos/:id', (req, res) => {
   });
 
 
-//Path /todos/:id =>id
+//Patch /todos/:id =>id
 
 app.patch('/todos/:id', function (req, res) {
     var updateObject = req.body; // {last_name : "smith", age: 44}
